@@ -45,9 +45,11 @@ public class MockAnnotationProcessor implements FieldAnnotationProcessor<Mock> {
         if (annotation.stubOnly()) {
             mockSettings.stubOnly();
         }
-        mockSettings.strictness(annotation.strictness());
         if (annotation.lenient()) {
             mockSettings.lenient();
+        }
+        if (annotation.strictness() != Mock.Strictness.NOT_SET) {
+            mockSettings.strictness(annotation.strictness().outer());
         }
 
         // see @Mock answer default value

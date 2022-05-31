@@ -20,7 +20,7 @@ public class StrictnessMockAnnotationTest {
 
     public @Rule MockitoRule rule = MockitoJUnit.rule().strictness(Strictness.STRICT_STUBS);
 
-    @Mock(strictness = Strictness.LENIENT)
+    @Mock(strictness = Mock.Strictness.LENIENT)
     IMethods lenientMock;
 
     @Mock IMethods regularMock;

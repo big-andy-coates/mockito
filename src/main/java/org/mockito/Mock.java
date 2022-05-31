@@ -13,7 +13,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 import org.mockito.junit.MockitoJUnitRunner;
-import org.mockito.quality.Strictness;
 import org.mockito.stubbing.Answer;
 
 /**
@@ -117,10 +116,44 @@ public @interface Mock {
     boolean lenient() default false;
 
     /**
-     * Mock will have custom strictness, see {@link MockSettings#strictness(Strictness)}.
+     * Mock will have custom strictness, see {@link MockSettings#strictness(org.mockito.quality.Strictness)}.
      * For examples how to use 'Mock' annotation and parameters see {@link Mock}.
      *
      * @since 4.6.0
      */
-    Strictness strictness() default Strictness.STRICT_STUBS;
+    Strictness strictness() default Strictness.NOT_SET;
+
+    // Todo: unit test to ensure all values covered
+    enum Strictness {
+
+        /**
+         * Default value used to indicate the mock does not override the inherited strictness.
+         */
+        NOT_SET(null),
+
+        /**
+         * see {@link org.mockito.quality.Strictness#LENIENT}
+         */
+        LENIENT(org.mockito.quality.Strictness.LENIENT),
+
+        /**
+         * see {@link org.mockito.quality.Strictness#WARN}
+         */
+        WARN(org.mockito.quality.Strictness.WARN),
+
+        /**
+         * see {@link org.mockito.quality.Strictness#STRICT_STUBS}
+         */
+        STRICT_STUBS(org.mockito.quality.Strictness.STRICT_STUBS);
+
+        private final org.mockito.quality.Strictness outer;
+
+        Strictness(org.mockito.quality.Strictness outer) {
+            this.outer = outer;
+        }
+
+        public org.mockito.quality.Strictness outer() {
+            return outer;
+        }
+    }
 }
