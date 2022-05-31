@@ -33,12 +33,13 @@ import org.mockito.stubbing.Answer;
  *       &#064;Mock(name = "database") private ArticleDatabase dbMock;
  *       &#064;Mock(answer = RETURNS_MOCKS) private UserProvider userProvider;
  *       &#064;Mock(extraInterfaces = {Queue.class, Observer.class}) private ArticleMonitor articleMonitor;
+ *       &#064;Mock(strictness = Mock.Strictness.LENIENT) private ArticleConsumer articleConsumer;
  *       &#064;Mock(stubOnly = true) private Logger logger;
  *
  *       private ArticleManager manager;
  *
  *       &#064;Before public void setup() {
- *           manager = new ArticleManager(userProvider, database, calculator, articleMonitor, logger);
+ *           manager = new ArticleManager(userProvider, database, calculator, articleMonitor, articleConsumer, logger);
  *       }
  *   }
  *
@@ -123,7 +124,6 @@ public @interface Mock {
      */
     Strictness strictness() default Strictness.NOT_SET;
 
-    // Todo: unit test to ensure all values covered
     enum Strictness {
 
         /**
